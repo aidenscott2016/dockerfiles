@@ -10,14 +10,14 @@
 # be disabled and audio files will only be accepted over ipc socket (using
 # file:// protocol) or streaming files over an accepted protocol.
 #
-music_directory		"/Music/beet"
+music_directory		"/Music"
 #
 # This setting sets the MPD internal playlist directory. The purpose of this
 # directory is storage for playlists created by MPD. The server will use 
 # playlist files not created by the server but only if they are in the MPD
 # format. This setting defaults to playlist saving being disabled.
 #
-playlist_directory		"/.mpd/playlists"
+# playlist_directory		"~/.mpd/playlists"
 #
 # This setting sets the location of the MPD database. This file is used to
 # load the database at server start up and store the database while the 
@@ -25,7 +25,7 @@ playlist_directory		"/.mpd/playlists"
 # MPD to accept files over ipc socket (using file:// protocol) or streaming
 # files over an accepted protocol.
 #
-db_file			"/.mpd/database"
+db_file			"~/.mpd/database"
 # 
 # These settings are the locations for the daemon log files for the daemon.
 # These logs are great for troubleshooting, depending on your log_level
@@ -34,25 +34,25 @@ db_file			"/.mpd/database"
 # The special value "syslog" makes MPD use the local syslog daemon. This
 # setting defaults to logging to syslog, otherwise logging is disabled.
 #
-log_file			"/.mpd/log"
+log_file			"~/.mpd/log"
 #
 # This setting sets the location of the file which stores the process ID
 # for use of mpd --kill and some init scripts. This setting is disabled by
 # default and the pid file will not be stored.
 #
-pid_file			"/.mpd/pid"
+pid_file			"~/.mpd/pid"
 #
 # This setting sets the location of the file which contains information about
 # most variables to get MPD back into the same general shape it was in before
 # it was brought down. This setting is disabled by default and the server 
 # state will be reset on server start up.
 #
-state_file			"/.mpd/state"
+state_file			"~/.mpd/state"
 #
 # The location of the sticker database.  This is a database which
 # manages dynamic information attached to songs.
 #
-sticker_file			"/.mpd/sticker.sql"
+sticker_file			"~/.mpd/sticker.sql"
 #
 ###############################################################################
 
@@ -79,10 +79,10 @@ sticker_file			"/.mpd/sticker.sql"
 # systemd socket activiation is in use.
 #
 # For network
-bind_to_address		"127.0.0.1"
+bind_to_address		"0.0.0.0"
 #
 # And for Unix Socket
-#bind_to_address		"/.mpd/socket"
+#bind_to_address		"~/.mpd/socket"
 #
 # This setting is the TCP port that is desired for the daemon to get assigned
 # to.
@@ -152,7 +152,7 @@ gapless_mp3_playback			"yes"
 # If this setting is set to "yes", service information will be published with
 # Zeroconf / Avahi.
 #
-#zeroconf_enabled		"yes"
+zeroconf_enabled		"no"
 #
 # The argument to this setting will be the Zeroconf / Avahi unique name for
 # this MPD server on the network.
@@ -207,15 +207,15 @@ input {
 #
 # An example of an ALSA output:
 #
-#audio_output {
-#	type		"alsa"
-#	name		"My ALSA Device"
-##	device		"hw:0,0"	# optional
-##	mixer_type      "hardware"	# optional
-##	mixer_device	"default"	# optional
-##	mixer_control	"PCM"		# optional
-##	mixer_index	"0"		# optional
-#}
+audio_output {
+  type		"alsa"
+  name		"My ALSA Device"
+#	device		"hw:0,0"	# optional
+#	mixer_type      "hardware"	# optional
+#	mixer_device	"default"	# optional
+#	mixer_control	"PCM"		# optional
+#	mixer_index	"0"		# optional
+}
 #
 # An example of an OSS output:
 #
@@ -230,25 +230,25 @@ input {
 #
 # An example of a shout output (for streaming to Icecast):
 #
-audio_output {
-  type		"shout"
-  encoder		"vorbis"		# optional
-  name		"My Shout Stream"
-  host		"localhost"
-  password "password123"
-  port		"8001"
-  mount		"/mpd.ogg"
-  quality		"10"
-  format		"44100:16:1"
-  #protocol	"icecast2"		# optional
-  #user		"source"		# optional
-  #description	"My Stream Description"	# optional
-  #url		"http://example.com"	# optional
-  #genre		"jazz"			# optional
-  #public		"no"			# optional
-  #timeout		"2"			# optional
-  #mixer_type      "software"		# optional
-}
+#audio_output {
+  #type		"shout"
+  ##encoder		"vorbis"		# optional
+  #name		"My Shout Stream"
+  #host		"localhost"
+  #password "password123"
+  #port		"8001"
+  #mount		"/mpd.ogg"
+  #quality		"10"
+  #format		"44100:16:1"
+  ##protocol	"icecast2"		# optional
+  ##user		"source"		# optional
+  ##description	"My Stream Description"	# optional
+  ##url		"http://example.com"	# optional
+  ##genre		"jazz"			# optional
+  ##public		"no"			# optional
+  ##timeout		"2"			# optional
+  ##mixer_type      "software"		# optional
+#}
 #
 # An example of a recorder output:
 #
@@ -278,12 +278,12 @@ audio_output {
 #
 # An example of a pulseaudio output (streaming to a remote pulseaudio server)
 #
-audio_output {
-	type		"pulse"
-	name		"mpd"
-##	server		"remote_server"		# optional
-##	sink		"remote_server_sink"	# optional
-}
+#audio_output {
+	#type		"pulse"
+	#name		"mpd"
+###	server		"remote_server"		# optional
+###	sink		"remote_server_sink"	# optional
+#}
 #
 # An example of a winmm output (Windows multimedia API).
 #
@@ -342,12 +342,12 @@ audio_output {
 #	mixer_type      "none"			# optional
 #}
 #o
-audio_output {
-    type        "fifo"
-    name        "mpd_fifo"
-    path        "/tmp/mpd.fifo"
-    format      "44100:16:2"
-}
+#audio_output {
+    #type        "fifo"
+    #name        "mpd_fifo"
+    #path        "/tmp/mpd.fifo"
+    #format      "44100:16:2"
+#}
 ###############################################################################
 
 
